@@ -1,0 +1,73 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: auto-tag\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-07-27 01:12+0100\n"
+"PO-Revision-Date: 2012-07-27 01:13+0100\n"
+"Last-Translator: Jonathan Foucher <jfoucher@gmail.com>\n"
+"Language-Team: Six Pixels <info@6px.eu>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-SearchPath-0: /home/jonathan/html/wordpress/wp-content/plugins/auto-tag\n"
+
+#: /home/jonathan/html/wordpress/wp-content/plugins/auto-tag/auto-tag-setup.class.php:23
+msgid "Settings"
+msgstr "Settings"
+
+#: /home/jonathan/html/wordpress/wp-content/plugins/auto-tag/auto-tag-setup.class.php:52
+msgid "Auto Tags Settings"
+msgstr "Auto Tags Settings"
+
+#: /home/jonathan/html/wordpress/wp-content/plugins/auto-tag/auto-tag-setup.class.php:58
+msgid "<a href=\"https://wordpressautotag.com\">Create your Autotag account</a> or visit your <a href=\"https://wordpressautotag.com/account/api_keys\">account page</a> to get your API keys."
+msgstr "<a href=\"https://wordpressautotag.com\">Create your Autotag account</a> or visit your <a href=\"https://wordpressautotag.com/account/api_keys\">account page</a> to get your API keys."
+
+#: /home/jonathan/html/wordpress/wp-content/plugins/auto-tag/auto-tag-setup.class.php:63
+msgid "Auto Tag Plugin"
+msgstr "Auto Tag Plugin"
+
+#: /home/jonathan/html/wordpress/wp-content/plugins/auto-tag/auto-tag-setup.class.php:70
+msgid "Enabled"
+msgstr "Enabled"
+
+#: /home/jonathan/html/wordpress/wp-content/plugins/auto-tag/auto-tag-setup.class.php:70
+msgid "Enable automatic tagging of your posts by <b>WP Auto Tag</b>"
+msgstr "Enable automatic tagging of your posts by <b>WP Auto Tag</b>"
+
+#: /home/jonathan/html/wordpress/wp-content/plugins/auto-tag/auto-tag-setup.class.php:72
+msgid "Maximum number of tags per post"
+msgstr "Maximum number of tags per post"
+
+#: /home/jonathan/html/wordpress/wp-content/plugins/auto-tag/auto-tag-setup.class.php:75
+msgid "Remove these tags (comma separated)"
+msgstr "Remove these tags (comma separated)"
+
+#: /home/jonathan/html/wordpress/wp-content/plugins/auto-tag/auto-tag-setup.class.php:75
+msgid "Append new tags to existing tags?"
+msgstr "Append new tags to existing tags?"
+
+#: /home/jonathan/html/wordpress/wp-content/plugins/auto-tag/auto-tag-setup.class.php:78
+msgid "General Settings"
+msgstr "General Settings"
+
+#: /home/jonathan/html/wordpress/wp-content/plugins/auto-tag/auto-tag-setup.class.php:80
+msgid "Enable or disable the automatic tagging of your posts through WP Auto Tag"
+msgstr "Enable or disable the automatic tagging of your posts through WP Auto Tag"
+
+#: /home/jonathan/html/wordpress/wp-content/plugins/auto-tag/auto-tag-setup.class.php:109
+msgid "Your settings have been saved successfully"
+msgstr "Your settings have been saved successfully"
+
+#: /home/jonathan/html/wordpress/wp-content/plugins/auto-tag/auto-tag-setup.class.php:112
+msgid "There is an error with your settings. Please correct and try again"
+msgstr "There is an error with your settings. Please correct and try again"
+
+#: /home/jonathan/html/wordpress/wp-content/plugins/auto-tag/options-form.class.php:59
+msgid "Save options"
+msgstr "Save options"
+
