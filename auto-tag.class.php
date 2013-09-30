@@ -27,59 +27,71 @@ class AutoTag {
 
     public static function forbidden_tag($forbidden,$tag)
     {
-		if (is_array($forbidden) && !empty($forbidden)){
-			foreach($forbidden as $forbid){
-				if ($forbid !='')
-					if(strpos(strtolower($tag), strtolower($forbid))!==false)
-						return true;
-			}
-		}
-		return false;
-	}
+    if (is_array($forbidden) && !empty($forbidden)){
+      foreach($forbidden as $forbid){
+        if ($forbid !='')
+          if(strpos(strtolower($tag), strtolower($forbid))!==false)
+            return true;
+      }
+    }
+    return false;
+  }
 
-	function auto_tag_yahoo($content, $num, $remove_tags)
+  function auto_tag_yahoo($content, $num, $remove_tags)
+  {
+
+    $tags = array();
+
+    try {
+
+      $response = wp_remote_get( 'http://query.yahooapis.com/v1/public/yql?q='
+        . urlencode( sprintf('select * from contentanalysis.analyze where text = "%s"',
+            utf8_decode(strip_tags($content)) ) )
+        . '&format=json&diagnostics=true&callback=' );
+
+      $data = wp_remote_retrieve_body( $response );
+
+      if ( empty($data) ) {
+        throw new ErrorException( 'No response from remote.' );
+      }
+
+      $json = json_decode( $data );
+
+      if ( ! isset($json->query->results->entities->entity) ) {
+        throw new ErrorException( 'No tags returned.' );
+      }
+
+      foreach ( $json->query->results->entities->entity as $entity ) {
+        $tag = $entity->text->content;
+        if ( self::forbidden_tag( $remove_tags, $tag ) OR strlen( $tag ) < 3 ) continue;
+        $tags[] = $tag;
+      }
+
+      if ( count($tags) > $num ) {
+        $tags = array_slice( $tags, 0, $num );
+      }
+
+    } catch (ErrorException $e) {
+
+    }
+
+    return join(',', $tags);
+  }
+
+
+  public function __construct()
+  {
+    add_action('save_post', array($this, 'tag_posts'), 1);
+    /** feedwordpress **/
+    if ( function_exists( 'is_syndicated' ) ) {
+      add_action('post_syndicated_item', array($this, 'tag_posts'), 1 );
+    }
+  }
+
+  public static function trim_tags(&$item, $k)
     {
-		$senddata = http_build_query(array(
-            'context'=>urlencode(utf8_decode(strip_tags($content))),
-            'output'=>'json',
-            'appid'=>'BR_m.GrV34HyixkLbaEHmgSInktZjX1AohGCN6F6ywe5ojN01XGwDw4eRrV3rFdY8zdrhNWH'
-		));
-        $ret = array();
-        try {
-		    $data = wp_remote_post('http://api.search.yahoo.com/ContentAnalysisService/V1/termExtraction', array('body' => $senddata));
-            if(!is_array($data)){
-                throw new ErrorException($data->get_error_message());
-            }
-            if($json=json_decode($data['body'])){
-                $i=0;
-                $kws = $json->ResultSet->Result;
-                shuffle($kws);
-                foreach($kws as $kw) {
-                    if ($i>=$num) break;
-                    if (!AutoTag::forbidden_tag($remove_tags, $kw) && strlen($kw) > 3) {
-                        $ret[].= $kw;
-                        $i++;
-                    }
-                }
-            }
-        } catch (ErrorException $e) {
-
-
-        }
-
-		return join(',', $ret);
-	}
-
-
-	public function __construct()
-    {
-		add_action('save_post', array($this, 'tag_posts'), 1);
-	}
-
-	public static function trim_tags(&$item, $k)
-    {
-		$item = trim($item);
-	}
+    $item = trim($item);
+  }
 
     public function remove_tags($tag)
     {
@@ -89,8 +101,8 @@ class AutoTag {
         return true;
     }
 
-	public function tag_posts($postid)
-    {
+  public function tag_posts($postid)
+  {
         $removed_tags = @filter_input(INPUT_POST, 'auto_tag_removed_tags', FILTER_SANITIZE_STRING);
         $removed_tag = @filter_input(INPUT_POST, 'auto_tag_removed_tag', FILTER_SANITIZE_STRING);
         $added_tags = @filter_var( $_POST['tax_input']['post_tag'], FILTER_SANITIZE_STRING);
@@ -141,6 +153,6 @@ class AutoTag {
         remove_action('save_post', array($this, 'tag_posts'));
 
         wp_set_post_tags( $postid, $keywords, false);
-	}
-	
+  }
+
 }
